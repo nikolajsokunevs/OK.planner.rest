@@ -1,5 +1,6 @@
 package lv.ok.repository;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
@@ -57,7 +58,7 @@ public class EventRepository {
         return url;
     }
 
-    public void insertDevice(Event event) {
+    public void insertEvent(Event event) {
         MongoCollection<Event> collection = db.getCollection("events", Event.class);
         collection.insertOne(event);
     }
@@ -66,5 +67,18 @@ public class EventRepository {
         MongoCollection<Event> collection = db.getCollection("events", Event.class);
         List<Event> foundDocument = collection.find().into(new ArrayList<Event>());
         return foundDocument;
+    }
+
+    public void deleteEvent(String id) {
+        MongoCollection<Event> collection = db.getCollection("events", Event.class);
+        BasicDBObject searchObject = new BasicDBObject();
+        searchObject.put("_id", id);
+        collection.deleteOne(searchObject);
+    }
+
+    public void updateEvent(String id, Event event){
+        deleteEvent(id);
+        event.setId(id);
+        insertEvent(event);
     }
 }

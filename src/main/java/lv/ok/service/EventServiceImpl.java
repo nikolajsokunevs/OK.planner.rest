@@ -11,12 +11,22 @@ public class EventServiceImpl implements IEventService{
 
     @Override
     public Event addEvent(Event device) {
-        eventRepository.insertDevice(device);
+        eventRepository.insertEvent(device);
         return null;
     }
 
     @Override
     public List<Event> getAllEvents() {
         return eventRepository.getAllDevices();
+    }
+
+    @Override
+    public void deleteEvent(String id) {
+        eventRepository.deleteEvent(id);
+    }
+
+    @Override
+    public void updateEvent(String id, Event event) {
+        eventRepository.updateEvent(id, event);
     }
 }
