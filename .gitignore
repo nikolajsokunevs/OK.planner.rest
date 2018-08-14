@@ -37,10 +37,16 @@
 **/target/*
 target
 
+
+
 # Other IDE's#
 ##############
+.idea/*
+**/.idea/*
+\.idea/*
 \.classpath
 \.project
 \.settings
 \.dorsync
 /nbactions.xml
+
