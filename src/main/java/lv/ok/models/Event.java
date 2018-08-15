@@ -17,6 +17,7 @@ public class Event {
     private String title;
     private String clientName;
     private String clientLastName;
+    private String cliectPhoneNumber;
     private String master;
     private Date start;
     private Date end;
@@ -25,6 +26,14 @@ public class Event {
     private String tbackgroundColoritle;
     private String borderColor;
     private String textColor;
+
+    public String getCliectPhoneNumber() {
+        return cliectPhoneNumber;
+    }
+
+    public void setCliectPhoneNumber(String cliectPhoneNumber) {
+        this.cliectPhoneNumber = cliectPhoneNumber;
+    }
 
     public String getMaster() {
         return master;

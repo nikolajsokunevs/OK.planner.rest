@@ -2,13 +2,9 @@ package lv.ok.repository.codecs;
 
 import lv.ok.models.Event;
 
-import lv.ok.models.Event;
 import org.bson.*;
 import org.bson.codecs.*;
 import org.bson.types.ObjectId;
-
-import java.util.Date;
-import java.util.List;
 
 public class EventCodec implements CollectibleCodec<Event> {
 
@@ -36,6 +32,7 @@ public class EventCodec implements CollectibleCodec<Event> {
         String title= event.getTitle();
         String clientName=event.getClientName();
         String clientLastName=event.getClientLastName();
+        String cliectPhoneNumber=event.getCliectPhoneNumber();
         String master=event.getMaster();
         String start= event.getStart();
         String end= event.getEnd();
@@ -49,6 +46,7 @@ public class EventCodec implements CollectibleCodec<Event> {
         if (null != title) document.put("title", title);
         if (null != clientName) document.put("clientName", clientName);
         if (null != clientLastName) document.put("clientLastName", clientLastName);
+        if (null != cliectPhoneNumber) document.put("cliectPhoneNumber", cliectPhoneNumber);
         if (null != master) document.put("master", master);
         if (null != start) document.put("start", start);
         if (null != end) document.put("end", end);
@@ -78,9 +76,10 @@ public class EventCodec implements CollectibleCodec<Event> {
         Event event = new Event();
         event.setId(document.getString("_id"));
         event.setTitle(document.getString("title"));
-        event.setTitle(document.getString("clientName"));
-        event.setTitle(document.getString("clientLastName"));
-        event.setTitle(document.getString("master"));
+        event.setClientName(document.getString("clientName"));
+        event.setClientLastName(document.getString("clientLastName"));
+        event.setCliectPhoneNumber(document.getString("cliectPhoneNumber"));
+        event.setMaster(document.getString("master"));
         event.setStart(document.getString("start"));
         event.setEnd(document.getString("end"));
         event.setAllDay(document.getBoolean("allDay"));
