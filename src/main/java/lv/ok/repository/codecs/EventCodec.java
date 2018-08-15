@@ -34,6 +34,9 @@ public class EventCodec implements CollectibleCodec<Event> {
         String id = event.getId();
 
         String title= event.getTitle();
+        String clientName=event.getClientName();
+        String clientLastName=event.getClientLastName();
+        String master=event.getMaster();
         String start= event.getStart();
         String end= event.getEnd();
         Boolean allDay= event.isAllDay();
@@ -44,6 +47,9 @@ public class EventCodec implements CollectibleCodec<Event> {
 
         if (null != id) document.put("_id", id);
         if (null != title) document.put("title", title);
+        if (null != clientName) document.put("clientName", clientName);
+        if (null != clientLastName) document.put("clientLastName", clientLastName);
+        if (null != master) document.put("master", master);
         if (null != start) document.put("start", start);
         if (null != end) document.put("end", end);
         if (null != allDay) document.put("allDay", allDay);
@@ -72,6 +78,9 @@ public class EventCodec implements CollectibleCodec<Event> {
         Event event = new Event();
         event.setId(document.getString("_id"));
         event.setTitle(document.getString("title"));
+        event.setTitle(document.getString("clientName"));
+        event.setTitle(document.getString("clientLastName"));
+        event.setTitle(document.getString("master"));
         event.setStart(document.getString("start"));
         event.setEnd(document.getString("end"));
         event.setAllDay(document.getBoolean("allDay"));

@@ -15,6 +15,9 @@ public class Event {
 
     private String id;
     private String title;
+    private String clientName;
+    private String clientLastName;
+    private String master;
     private Date start;
     private Date end;
     private Boolean allDay;
@@ -22,6 +25,30 @@ public class Event {
     private String tbackgroundColoritle;
     private String borderColor;
     private String textColor;
+
+    public String getMaster() {
+        return master;
+    }
+
+    public void setMaster(String master) {
+        this.master = master;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getClientLastName() {
+        return clientLastName;
+    }
+
+    public void setClientLastName(String clientLastName) {
+        this.clientLastName = clientLastName;
+    }
 
     public String getId() {
         return id;
