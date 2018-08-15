@@ -14,36 +14,39 @@ public class EventResource {
 
     @GET
     @Path("all")
-    @Produces("application/json")
-    public List<Event> getAll(){
-        IEventService eventService=new EventServiceImpl();
-        return eventService.getAllEvents();
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAll() {
+        IEventService eventService = new EventServiceImpl();
+        return Response.status(200).
+                entity(eventService.getAllEvents()).
+                header("Access-Control-Allow-Origin", "*").build();
     }
 
     @POST
     @Path("add")
     @Produces("application/json")
-    public Response post(Event event){
-        IEventService eventService=new EventServiceImpl();
+    public Response post(Event event) {
+        IEventService eventService = new EventServiceImpl();
         eventService.addEvent(event);
-        return Response.ok().entity(event).build();
+        return Response.ok().entity(event).
+                header("Access-Control-Allow-Origin", "*").build();
     }
 
     @DELETE
     @Path("delete/{id}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response delete(@PathParam( "id" ) String catId){
-        IEventService catService=new EventServiceImpl();
+    public Response delete(@PathParam("id") String catId) {
+        IEventService catService = new EventServiceImpl();
         catService.deleteEvent(catId);
-        return Response.ok().entity("Event was deleted").build();
+        return Response.ok().entity("Event was deleted").header("Access-Control-Allow-Origin", "*").build();
     }
 
     @PUT
     @Path("update/{id}")
     @Produces("application/json")
-    public Response update(@PathParam( "id" ) String eventId, Event event){
-        IEventService eventService=new EventServiceImpl();
+    public Response update(@PathParam("id") String eventId, Event event) {
+        IEventService eventService = new EventServiceImpl();
         eventService.updateEvent(eventId, event);
-        return Response.ok().entity(event).build();
+        return Response.ok().entity(event).header("Access-Control-Allow-Origin", "*").build();
     }
 }
