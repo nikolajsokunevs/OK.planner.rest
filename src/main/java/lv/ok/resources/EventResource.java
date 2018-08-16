@@ -18,18 +18,16 @@ public class EventResource {
     public Response getAll() {
         IEventService eventService = new EventServiceImpl();
         return Response.status(200).
-                entity(eventService.getAllEvents()).
-                header("Access-Control-Allow-Origin", "*").build();
+                entity(eventService.getAllEvents()).build();
     }
 
     @POST
     @Path("add")
-    @Produces("application/json")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response post(Event event) {
         IEventService eventService = new EventServiceImpl();
         eventService.addEvent(event);
-        return Response.ok().entity(event).
-                header("Access-Control-Allow-Origin", "*").build();
+        return Response.ok(event).build();
     }
 
     @DELETE
@@ -43,7 +41,7 @@ public class EventResource {
 
     @PUT
     @Path("update/{id}")
-    @Produces("application/json")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response update(@PathParam("id") String eventId, Event event) {
         IEventService eventService = new EventServiceImpl();
         eventService.updateEvent(eventId, event);

@@ -1,3 +1,4 @@
+import lv.ok.resources.CORSFilter;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -22,6 +23,7 @@ public class Main {
     }
     public static HttpServer startServer() {
         final ResourceConfig rc = new ResourceConfig().packages("lv.ok.resources");
+        rc.register(new CORSFilter());
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
 
