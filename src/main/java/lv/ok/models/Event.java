@@ -10,7 +10,7 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Event {
 
-    private static final DateFormat FORMATTER_LONG= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:SS");
+    private static final DateFormat FORMATTER_LONG= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
     private static final DateFormat FORMATTER_SHORT= new SimpleDateFormat("yyyy-MM-dd");
 
     private String id;
