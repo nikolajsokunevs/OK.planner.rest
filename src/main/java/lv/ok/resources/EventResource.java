@@ -1,8 +1,11 @@
 package lv.ok.resources;
 
 import lv.ok.models.Event;
+import lv.ok.models.User;
 import lv.ok.service.EventServiceImpl;
 import lv.ok.service.IEventService;
+import lv.ok.service.IUserService;
+import lv.ok.service.UserServiceImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,7 +16,7 @@ import java.util.List;
 public class EventResource {
 
     @GET
-    @Path("all")
+    @Path("event/all")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         IEventService eventService = new EventServiceImpl();
@@ -22,7 +25,7 @@ public class EventResource {
     }
 
     @POST
-    @Path("add")
+    @Path("event/add")
     @Produces({MediaType.APPLICATION_JSON})
     public Response post(Event event) {
         IEventService eventService = new EventServiceImpl();
@@ -31,7 +34,7 @@ public class EventResource {
     }
 
     @DELETE
-    @Path("delete/{id}")
+    @Path("event/delete/{id}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response delete(@PathParam("id") String catId) {
         IEventService catService = new EventServiceImpl();
@@ -40,11 +43,20 @@ public class EventResource {
     }
 
     @PUT
-    @Path("update/{id}")
+    @Path("event/update/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response update(@PathParam("id") String eventId, Event event) {
         IEventService eventService = new EventServiceImpl();
         eventService.updateEvent(eventId, event);
         return Response.ok().entity(event).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @POST
+    @Path("user/add")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response createUser(User user) {
+        IUserService userService = new UserServiceImpl();
+        userService.addUser(user);
+        return Response.ok(user).build();
     }
 }

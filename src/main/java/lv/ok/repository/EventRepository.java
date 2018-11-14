@@ -21,20 +21,10 @@ import static java.lang.String.format;
 
 import static lv.ok.config.ApplicationProperties.getString;
 
-public class EventRepository {
+public class EventRepository extends BaseRepository {
 
     public static EventRepository instance;
 
-    private static String HOST = getString(ApplicationProperties.ApplicationProperty.DB_HOST);
-    private static String PORT = getString(ApplicationProperties.ApplicationProperty.DB_PORT);
-    private static String DB_NAME = getString(ApplicationProperties.ApplicationProperty.DB_NAME);
-
-    private static String USER = getString(ApplicationProperties.ApplicationProperty.DB_USER);
-    private static String PASSWORD = getString(ApplicationProperties.ApplicationProperty.DB_PASSWORD);
-
-    private MongoDatabase db;
-
-    private CodecRegistry codecRegistry;
 
     private EventRepository() {
 
@@ -51,11 +41,6 @@ public class EventRepository {
         if (instance != null) return instance;
         instance = new EventRepository();
         return instance;
-    }
-
-    private static String getConnectionURL() {
-        String url = format("mongodb://%s:%s@%s:%s/%s", USER, PASSWORD, HOST, PORT, DB_NAME);
-        return url;
     }
 
     public void insertEvent(Event event) {
