@@ -1,5 +1,6 @@
 package lv.ok.repository;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
@@ -33,5 +34,12 @@ public class UserRepository extends BaseRepository{
     public void insertUser(User user) {
         MongoCollection<User> collection = db.getCollection("users", User.class);
         collection.insertOne(user);
+    }
+
+    public void deleteUser(String id) {
+        MongoCollection<User> collection = db.getCollection("users", User.class);
+        BasicDBObject searchObject = new BasicDBObject();
+        searchObject.put("_id", id);
+        collection.deleteOne(searchObject);
     }
 }

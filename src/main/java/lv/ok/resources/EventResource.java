@@ -16,7 +16,7 @@ import java.util.List;
 public class EventResource {
 
     @GET
-    @Path("event/all")
+    @Path("all")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         IEventService eventService = new EventServiceImpl();
@@ -25,7 +25,7 @@ public class EventResource {
     }
 
     @POST
-    @Path("event/add")
+    @Path("add")
     @Produces({MediaType.APPLICATION_JSON})
     public Response post(Event event) {
         IEventService eventService = new EventServiceImpl();
@@ -34,7 +34,7 @@ public class EventResource {
     }
 
     @DELETE
-    @Path("event/delete/{id}")
+    @Path("delete/{id}")
     @Produces(MediaType.TEXT_PLAIN)
     public Response delete(@PathParam("id") String catId) {
         IEventService catService = new EventServiceImpl();
@@ -43,7 +43,7 @@ public class EventResource {
     }
 
     @PUT
-    @Path("event/update/{id}")
+    @Path("update/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response update(@PathParam("id") String eventId, Event event) {
         IEventService eventService = new EventServiceImpl();
@@ -51,12 +51,5 @@ public class EventResource {
         return Response.ok().entity(event).header("Access-Control-Allow-Origin", "*").build();
     }
 
-    @POST
-    @Path("user/add")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response createUser(User user) {
-        IUserService userService = new UserServiceImpl();
-        userService.addUser(user);
-        return Response.ok(user).build();
-    }
+
 }

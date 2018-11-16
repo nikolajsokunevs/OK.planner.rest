@@ -12,4 +12,10 @@ public class UserServiceImpl implements IUserService {
         userRepository.insertUser(user);
         return null;
     }
+
+    @Override
+    public void deleteUser(String id) {
+        userRepository.deleteUser(id);
+    }
+
 }
