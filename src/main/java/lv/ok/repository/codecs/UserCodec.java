@@ -1,9 +1,11 @@
 package lv.ok.repository.codecs;
 
 import lv.ok.models.User;
+import lv.ok.resources.HashPassword;
 import org.bson.*;
 import org.bson.codecs.*;
 import org.bson.types.ObjectId;
+
 
 public class UserCodec implements CollectibleCodec<User> {
 
@@ -18,11 +20,12 @@ public class UserCodec implements CollectibleCodec<User> {
         this.documentCodec = codec;
     }
 
+
     public Document deviceToDocument(User user) {
         Document document = new Document();
         String id = user.getId();
         String username = user.getUsername();
-        String password = user.getPassword();
+        String password = HashPassword.createHash(user.getPassword());
         String company = user.getCompany();
 
 
