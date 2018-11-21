@@ -4,11 +4,13 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
+import static com.mongodb.client.model.Filters.eq;
 import lv.ok.models.User;
 import lv.ok.repository.codecs.UserCodec;
 import org.bson.Document;
 import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecRegistries;
+
 
 public class UserRepository extends BaseRepository{
 
@@ -42,4 +44,15 @@ public class UserRepository extends BaseRepository{
         searchObject.put("_id", id);
         collection.deleteOne(searchObject);
     }
+
+    public boolean checkIfUsernameExists(String usernameValue) {
+        MongoCollection<User> collection = db.getCollection("users", User.class);
+        User user = collection.find(eq("username", usernameValue)).first();
+        if (user == null)
+            return false;
+        else
+            return true;
+    }
+
+
 }
