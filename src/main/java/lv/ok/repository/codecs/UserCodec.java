@@ -1,7 +1,7 @@
 package lv.ok.repository.codecs;
 
 import lv.ok.models.User;
-import lv.ok.resources.HashPassword;
+import lv.ok.HashPassword;
 import org.bson.*;
 import org.bson.codecs.*;
 import org.bson.types.ObjectId;

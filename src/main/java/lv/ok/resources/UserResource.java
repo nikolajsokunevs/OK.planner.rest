@@ -29,4 +29,13 @@ public class UserResource {
         userService.deleteUser(userId);
         return Response.ok().entity("User " + userId + " has been deleted").header("Access-Control-Allow-Origin", "*").build();
     }
+
+    @POST
+    @Path("signIn")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response login(User user) {
+        IUserService userService = new UserServiceImpl();
+        String result = userService.signIn(user);
+        return Response.ok(result).build();
+    }
 }

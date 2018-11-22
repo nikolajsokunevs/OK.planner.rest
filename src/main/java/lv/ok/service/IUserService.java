@@ -6,5 +6,6 @@ public interface IUserService {
 
     void deleteUser(String id);
     String signUpUser(User user);
+    String signIn(User user);
 
 }

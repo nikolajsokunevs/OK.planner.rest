@@ -1,4 +1,4 @@
-package lv.ok.resources;
+package lv.ok;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

@@ -54,5 +54,13 @@ public class UserRepository extends BaseRepository{
             return true;
     }
 
+    public String getPasswordHash(String usernameValue) {
+        MongoCollection<User> collection = db.getCollection("users", User.class);
+        User user = collection.find(eq("username", usernameValue)).first();
+        return user.getPassword();
+    }
+
+
+
 
 }
