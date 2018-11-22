@@ -3,6 +3,7 @@ package lv.ok.service;
 import lv.ok.HashPassword;
 import lv.ok.models.User;
 import lv.ok.repository.UserRepository;
+import lv.ok.resources.responses.LoginResponse;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -30,14 +31,18 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public String signIn(User user) {
+    public LoginResponse signIn(User user) {
 
+        //LoginResponse response = new LoginResponse();
         boolean isUsernameCorrect = userRepository.checkIfUsernameExists(user.getUsername());
+
         if (isUsernameCorrect == false){
-            return "Your details are incorrect";
+            return new LoginResponse(false, "Your details are incorrect");
         }
+
         String hash = userRepository.getPasswordHash(user.getUsername());
         boolean isPasswordCorrect = false;
+
         try {
              isPasswordCorrect = HashPassword.validatePassword(user.getPassword(), hash);
         }
@@ -45,10 +50,11 @@ public class UserServiceImpl implements IUserService {
         catch (InvalidKeySpecException ie) {}
 
         if (isPasswordCorrect == false){
-            return "Your details are incorrect";
+            return new LoginResponse(false, "Your details are incorrect");
         }
 
-        return "Welcome " + user.getUsername() + "! You are logged in now";
+        return new LoginResponse(true,
+                "Welcome, " + user.getUsername() + "!");
     }
 
 }

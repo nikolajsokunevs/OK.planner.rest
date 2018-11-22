@@ -1,6 +1,7 @@
 package lv.ok.resources;
 
 import lv.ok.models.User;
+import lv.ok.resources.responses.LoginResponse;
 import lv.ok.service.IUserService;
 import lv.ok.service.UserServiceImpl;
 
@@ -35,7 +36,7 @@ public class UserResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response login(User user) {
         IUserService userService = new UserServiceImpl();
-        String result = userService.signIn(user);
+        LoginResponse result = userService.signIn(user);
         return Response.ok(result).build();
     }
 }
