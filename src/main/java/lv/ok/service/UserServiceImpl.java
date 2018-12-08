@@ -1,6 +1,7 @@
 package lv.ok.service;
 
 import lv.ok.HashPassword;
+import lv.ok.JwtGenerator;
 import lv.ok.models.User;
 import lv.ok.repository.UserRepository;
 import lv.ok.resources.responses.LoginResponse;
@@ -33,28 +34,42 @@ public class UserServiceImpl implements IUserService {
     @Override
     public LoginResponse signIn(User user) {
 
-        //LoginResponse response = new LoginResponse();
         boolean isUsernameCorrect = userRepository.checkIfUsernameExists(user.getUsername());
 
         if (isUsernameCorrect == false){
             return new LoginResponse(false, "Your details are incorrect");
         }
 
-        String hash = userRepository.getPasswordHash(user.getUsername());
-        boolean isPasswordCorrect = false;
-
-        try {
-             isPasswordCorrect = HashPassword.validatePassword(user.getPassword(), hash);
-        }
-        catch (NoSuchAlgorithmException ne) {}
-        catch (InvalidKeySpecException ie) {}
+        boolean isPasswordCorrect = checkIfPasswordIsValid(user);
 
         if (isPasswordCorrect == false){
             return new LoginResponse(false, "Your details are incorrect");
         }
 
-        return new LoginResponse(true,
+        LoginResponse response = generateLoginResponse(user);
+        return response;
+    }
+
+    public boolean checkIfPasswordIsValid(User user){
+        String hash = userRepository.getPasswordHash(user.getUsername());
+        boolean isPasswordCorrect = false;
+
+        try {
+            isPasswordCorrect = HashPassword.validatePassword(user.getPassword(), hash);
+            return isPasswordCorrect;
+        }
+        catch (NoSuchAlgorithmException | InvalidKeySpecException exc) {
+            System.out.println("either password hashing algorithm or key is invalid");
+            return isPasswordCorrect;
+        }
+    }
+
+    public LoginResponse generateLoginResponse(User user) {
+        LoginResponse response = new LoginResponse(true,
                 "Welcome, " + user.getUsername() + "!");
+        String token = new JwtGenerator().generateToken(user);
+        response.setToken(token);
+        return response;
     }
 
 }

@@ -36,18 +36,19 @@ public class EventResource {
     @DELETE
     @Path("delete/{id}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response delete(@PathParam("id") String catId) {
+    public Response delete(@PathParam("id") String catId, String jwt) {
         IEventService catService = new EventServiceImpl();
-        catService.deleteEvent(catId);
+        catService.deleteEvent(catId, jwt);
         return Response.ok().entity("Event was deleted").header("Access-Control-Allow-Origin", "*").build();
     }
 
     @PUT
     @Path("update/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response update(@PathParam("id") String eventId, Event event) {
+    public Response update(@PathParam("id") String eventId, Event event,
+                           @HeaderParam("authorization") String authorization, User user) {
         IEventService eventService = new EventServiceImpl();
-        eventService.updateEvent(eventId, event);
+        eventService.updateEvent(eventId, event, authorization, user);
         return Response.ok().entity(event).header("Access-Control-Allow-Origin", "*").build();
     }
 

@@ -5,6 +5,7 @@ import lv.ok.resources.responses.LoginResponse;
 import lv.ok.service.IUserService;
 import lv.ok.service.UserServiceImpl;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -33,6 +34,7 @@ public class UserResource {
 
     @POST
     @Path("signIn")
+    @PermitAll
     @Produces({MediaType.APPLICATION_JSON})
     public Response login(User user) {
         IUserService userService = new UserServiceImpl();
