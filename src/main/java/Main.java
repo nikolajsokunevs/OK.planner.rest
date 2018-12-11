@@ -24,7 +24,7 @@ public class Main {
     }
     public static HttpServer startServer() {
         final ResourceConfig rc = new ResourceConfig().packages("lv.ok.resources");
-      //  rc.register(new AuthenticationFilter());
+        rc.register(new AuthenticationFilter());
         rc.register(new CORSFilter());
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }

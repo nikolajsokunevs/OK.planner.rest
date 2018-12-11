@@ -5,10 +5,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import lv.ok.JwtGenerator;
 import lv.ok.config.ApplicationProperties;
 import lv.ok.models.Event;
-import lv.ok.models.User;
 import lv.ok.repository.codecs.EventCodec;
 import org.bson.Document;
 import org.bson.codecs.Codec;
@@ -56,19 +54,16 @@ public class EventRepository extends BaseRepository {
         return foundDocument;
     }
 
-    public void deleteEvent(String id, String jwt) {
+    public void deleteEvent(String id) {
         MongoCollection<Event> collection = db.getCollection("events", Event.class);
         BasicDBObject searchObject = new BasicDBObject();
         searchObject.put("_id", id);
         collection.deleteOne(searchObject);
     }
 
-    public void updateEvent(String id, Event event, String jwt, User user){
-        boolean isUserAuthorized = new JwtGenerator().validateToken(jwt, user);
-        deleteEvent(id, jwt);
+    public void updateEvent(String id, Event event){
+        deleteEvent(id);
         event.setId(id);
         insertEvent(event);
     }
-
-
 }

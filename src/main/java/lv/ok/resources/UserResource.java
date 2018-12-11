@@ -16,6 +16,7 @@ public class UserResource {
 
     @POST
     @Path("signUp")
+    @PermitAll
     @Produces({MediaType.APPLICATION_JSON})
     public Response createUser(User user) {
         IUserService userService = new UserServiceImpl();

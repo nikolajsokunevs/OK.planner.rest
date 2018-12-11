@@ -1,7 +1,6 @@
 package lv.ok.service;
 
 import lv.ok.models.Event;
-import lv.ok.models.User;
 import lv.ok.repository.EventRepository;
 
 import java.util.List;
@@ -22,12 +21,12 @@ public class EventServiceImpl implements IEventService{
     }
 
     @Override
-    public void deleteEvent(String id, String jwt) {
-        eventRepository.deleteEvent(id, jwt);
+    public void deleteEvent(String id) {
+        eventRepository.deleteEvent(id);
     }
 
     @Override
-    public void updateEvent(String id, Event event, String jwt, User user) {
-        eventRepository.updateEvent(id, event, jwt, user);
+    public void updateEvent(String id, Event event) {
+        eventRepository.updateEvent(id, event);
     }
 }
