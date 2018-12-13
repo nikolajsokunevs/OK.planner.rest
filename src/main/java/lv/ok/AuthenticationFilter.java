@@ -41,13 +41,14 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
     public void filter(ContainerRequestContext requestContext)
     {
         Method method = resourceInfo.getResourceMethod();
-        //Access allowed for all
-        if( ! method.isAnnotationPresent(PermitAll.class))
+
+        if(!(method.isAnnotationPresent(PermitAll.class))||!(requestContext.getMethod().equals("OPTIONS")))
         {
             //Access denied for all
             if(method.isAnnotationPresent(DenyAll.class))
             {
-                requestContext.abortWith(ACCESS_FORBIDDEN);
+                requestContext.abortWith(Response.status(Response.Status.FORBIDDEN)
+                        .entity("Access blocked for all users !!").build());
                 return;
             }
 
@@ -60,7 +61,8 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
             //If no authorization information present; block access
             if(authorization == null || authorization.isEmpty())
             {
-                requestContext.abortWith(ACCESS_DENIED);
+                requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                        .entity("You cannot access this resource").build());
                 return;
             }
 
@@ -68,7 +70,8 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
 
             if( ! isTokenValid)
             {
-                requestContext.abortWith(ACCESS_DENIED);
+                requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
+                        .entity("You cannot access this resource").build());
                 return;
             }
 
