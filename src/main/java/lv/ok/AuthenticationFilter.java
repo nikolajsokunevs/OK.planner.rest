@@ -42,7 +42,7 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
     {
         Method method = resourceInfo.getResourceMethod();
 
-        if(!(method.isAnnotationPresent(PermitAll.class))||!(requestContext.getMethod().equals("OPTIONS")))
+        if(!(method.isAnnotationPresent(PermitAll.class))&&!(requestContext.getMethod().equals("OPTIONS")))
         {
             //Access denied for all
             if(method.isAnnotationPresent(DenyAll.class))

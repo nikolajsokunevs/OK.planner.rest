@@ -17,5 +17,12 @@ public class User {
     public void  setId(String id) {this.id = id;}
 
     public String getCompany() {return company;}
-    public void  setCompany(String company) {this.company = company;}
+    public void  setCompany(String company) {
+        if(company == null) {
+            this.company = "";
+        }
+        else {
+            this.company = company;
+        }
+    }
 }
