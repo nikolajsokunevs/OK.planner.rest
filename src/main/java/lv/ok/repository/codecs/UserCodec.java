@@ -6,15 +6,13 @@ import org.bson.*;
 import org.bson.codecs.*;
 import org.bson.types.ObjectId;
 
+import java.util.Date;
+
 
 public class UserCodec implements CollectibleCodec<User> {
 
 
     private Codec<Document> documentCodec;
-
-    public UserCodec() {
-        this.documentCodec = new DocumentCodec();
-    }
 
     public UserCodec(Codec<Document> codec) {
         this.documentCodec = codec;
@@ -27,12 +25,14 @@ public class UserCodec implements CollectibleCodec<User> {
         String username = user.getUsername();
         String password = HashPassword.createHash(user.getPassword());
         String company = user.getCompany();
+        Date dateCreated = user.getDateCreated();
 
 
         if (null != id) document.put("_id", id);
         if (null != username) document.put("username", username);
         if (null != password) document.put("password", password);
         if (null != company) document.put("company", company);
+        if (null != dateCreated) document.put("dateCreated", dateCreated);
 
         return document;
     }
@@ -43,6 +43,7 @@ public class UserCodec implements CollectibleCodec<User> {
         user.setUsername(document.getString("username"));
         user.setPassword(document.getString("password"));
         user.setCompany(document.getString("company"));
+        user.setDateCreated();
 
         return user;
     }

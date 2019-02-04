@@ -21,6 +21,7 @@ public class UserServiceImpl implements IUserService {
             return "Username " + user.getUsername() + " is taken by another user. Please choose another username.";
         }
         else {
+            user.setDateCreated();
             userRepository.insertUser(user);
             return "Username " + user.getUsername() + " has been added successfully.";
         }

@@ -1,11 +1,14 @@
 package lv.ok.models;
 
+import java.util.Date;
+
 public class User {
 
     private String username;
     private String password;
     private String id;
     private String company;
+    private Date dateCreated;
 
     public String getUsername() {return username;}
     public void  setUsername(String username) {this.username = username;}
@@ -25,4 +28,11 @@ public class User {
             this.company = company;
         }
     }
+
+    public Date getDateCreated() {
+        if (dateCreated == null){
+            return null;
+        }
+        return dateCreated;}
+    public void setDateCreated() {this.dateCreated = new Date();}
 }
