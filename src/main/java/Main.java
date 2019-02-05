@@ -1,4 +1,4 @@
-import lv.ok.AuthenticationFilter;
+import lv.ok.utils.AuthenticationFilter;
 import lv.ok.resources.CORSFilter;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;

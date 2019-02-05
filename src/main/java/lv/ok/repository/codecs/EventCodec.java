@@ -2,6 +2,7 @@ package lv.ok.repository.codecs;
 
 import lv.ok.models.Event;
 
+import lv.ok.utils.Constants;
 import org.bson.*;
 import org.bson.codecs.*;
 import org.bson.types.ObjectId;
@@ -42,7 +43,7 @@ public class EventCodec implements CollectibleCodec<Event> {
         String borderColor= event.getBorderColor();
         String textColor= event.getTextColor();
 
-        if (null != id) document.put("_id", id);
+        if (null != id) document.put(Constants._ID, id);
         if (null != title) document.put("title", title);
         if (null != clientName) document.put("clientName", clientName);
         if (null != clientLastName) document.put("clientLastName", clientLastName);
@@ -67,14 +68,14 @@ public class EventCodec implements CollectibleCodec<Event> {
     @Override
     public Event decode(BsonReader reader, DecoderContext decoderContext) {
         Document document = documentCodec.decode(reader, decoderContext);
-        System.out.println("document " + document);
+        System.out.println(Constants.DOCUMENT + " " + document);
         Event event = documentToEvent(document);
         return event;
     }
 
     public Event documentToEvent(Document document){
         Event event = new Event();
-        event.setId(document.getString("_id"));
+        event.setId(document.getString(Constants._ID));
         event.setTitle(document.getString("title"));
         event.setClientName(document.getString("clientName"));
         event.setClientLastName(document.getString("clientLastName"));

@@ -1,7 +1,7 @@
 package lv.ok.service;
 
-import lv.ok.HashPassword;
-import lv.ok.JwtGenerator;
+import lv.ok.utils.HashPassword;
+import lv.ok.utils.JwtGenerator;
 import lv.ok.models.User;
 import lv.ok.repository.UserRepository;
 import lv.ok.resources.responses.LoginResponse;

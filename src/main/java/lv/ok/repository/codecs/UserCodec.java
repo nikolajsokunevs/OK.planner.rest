@@ -1,7 +1,8 @@
 package lv.ok.repository.codecs;
 
 import lv.ok.models.User;
-import lv.ok.HashPassword;
+import lv.ok.utils.Constants;
+import lv.ok.utils.HashPassword;
 import org.bson.*;
 import org.bson.codecs.*;
 import org.bson.types.ObjectId;
@@ -28,10 +29,10 @@ public class UserCodec implements CollectibleCodec<User> {
         Date dateCreated = user.getDateCreated();
 
 
-        if (null != id) document.put("_id", id);
-        if (null != username) document.put("username", username);
-        if (null != password) document.put("password", password);
-        if (null != company) document.put("company", company);
+        if (null != id) document.put(Constants._ID, id);
+        if (null != username) document.put(Constants.USERNAME, username);
+        if (null != password) document.put(Constants.PASSWORD, password);
+        if (null != company) document.put(Constants.COMPANY, company);
         if (null != dateCreated) document.put("dateCreated", dateCreated);
 
         return document;
@@ -39,10 +40,10 @@ public class UserCodec implements CollectibleCodec<User> {
 
     public User documentToUser(Document document){
         User user = new User();
-        user.setId(document.getString("_id"));
-        user.setUsername(document.getString("username"));
-        user.setPassword(document.getString("password"));
-        user.setCompany(document.getString("company"));
+        user.setId(document.getString(Constants._ID));
+        user.setUsername(document.getString(Constants.USERNAME));
+        user.setPassword(document.getString(Constants.PASSWORD));
+        user.setCompany(document.getString(Constants.COMPANY));
         user.setDateCreated();
 
         return user;
@@ -63,7 +64,7 @@ public class UserCodec implements CollectibleCodec<User> {
     @Override
     public User decode(BsonReader reader, DecoderContext decoderContext) {
         Document document = documentCodec.decode(reader, decoderContext);
-        System.out.println("document " + document);
+        System.out.println(Constants.DOCUMENT + " " + document);
         User user = documentToUser(document);
         return user;
     }

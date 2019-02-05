@@ -5,9 +5,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import lv.ok.config.ApplicationProperties;
 import lv.ok.models.Event;
 import lv.ok.repository.codecs.EventCodec;
+import lv.ok.utils.Constants;
 import org.bson.Document;
 import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecRegistries;
@@ -44,20 +46,20 @@ public class EventRepository extends BaseRepository {
     }
 
     public void insertEvent(Event event) {
-        MongoCollection<Event> collection = db.getCollection("events", Event.class);
+        MongoCollection<Event> collection = db.getCollection(Constants.EVENTS, Event.class);
         collection.insertOne(event);
     }
 
     public List<Event> getAllDevices() {
-        MongoCollection<Event> collection = db.getCollection("events", Event.class);
+        MongoCollection<Event> collection = db.getCollection(Constants.EVENTS, Event.class);
         List<Event> foundDocument = collection.find().into(new ArrayList<Event>());
         return foundDocument;
     }
 
     public void deleteEvent(String id) {
-        MongoCollection<Event> collection = db.getCollection("events", Event.class);
+        MongoCollection<Event> collection = db.getCollection(Constants.EVENTS, Event.class);
         BasicDBObject searchObject = new BasicDBObject();
-        searchObject.put("_id", id);
+        searchObject.put(Constants._ID, id);
         collection.deleteOne(searchObject);
     }
 

@@ -5,8 +5,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
+
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import lv.ok.models.User;
 import lv.ok.repository.codecs.UserCodec;
+import lv.ok.utils.Constants;
 import org.bson.Document;
 import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecRegistries;
@@ -34,20 +37,20 @@ public class UserRepository extends BaseRepository{
     }
 
     public void insertUser(User user) {
-        MongoCollection<User> collection = db.getCollection("users", User.class);
+        MongoCollection<User> collection = db.getCollection(Constants.USERS, User.class);
         collection.insertOne(user);
     }
 
     public void deleteUser(String id) {
-        MongoCollection<User> collection = db.getCollection("users", User.class);
+        MongoCollection<User> collection = db.getCollection(Constants.USERS, User.class);
         BasicDBObject searchObject = new BasicDBObject();
-        searchObject.put("_id", id);
+        searchObject.put(Constants._ID, id);
         collection.deleteOne(searchObject);
     }
 
     public boolean checkIfUsernameExists(String usernameValue) {
-        MongoCollection<User> collection = db.getCollection("users", User.class);
-        User user = collection.find(eq("username", usernameValue)).first();
+        MongoCollection<User> collection = db.getCollection(Constants.USERS, User.class);
+        User user = collection.find(eq(Constants.USERNAME, usernameValue)).first();
         if (user == null)
             return false;
         else
@@ -55,8 +58,8 @@ public class UserRepository extends BaseRepository{
     }
 
     public String getPasswordHash(String usernameValue) {
-        MongoCollection<User> collection = db.getCollection("users", User.class);
-        User user = collection.find(eq("username", usernameValue)).first();
+        MongoCollection<User> collection = db.getCollection(Constants.USERS, User.class);
+        User user = collection.find(eq(Constants.USERNAME, usernameValue)).first();
         return user.getPassword();
     }
 

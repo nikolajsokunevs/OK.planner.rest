@@ -1,4 +1,4 @@
-package lv.ok;
+package lv.ok.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -21,7 +21,7 @@ public class JwtGenerator {
             jws = Jwts.builder()
                     .setIssuer("PlanIt")
                     .setSubject("msilverman")
-                    .claim("username", user.getUsername())
+                    .claim(Constants.USERNAME, user.getUsername())
                   //  .claim("company", user.getCompany())
                     .claim("scope", "admins")
                     // Fri Jun 24 2016 15:33:42 GMT-0400 (EDT)
@@ -52,7 +52,7 @@ public class JwtGenerator {
         catch (UnsupportedEncodingException uee) {return false;}
 
         String issuer = (String) claims.getBody().get("iss");
-        String username = (String) claims.getBody().get("username");
+        String username = (String) claims.getBody().get(Constants.USERNAME);
 
         if("PlanIt".equals(issuer) && username != null) {
             return true;

@@ -1,5 +1,6 @@
 package lv.ok.config;
 
+import lv.ok.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,7 @@ public class ApplicationProperties {
     private static final Logger logger = LoggerFactory.getLogger(ApplicationProperties.class);
     private static HashMap<String, Properties> DEFAULT_VALUES = new HashMap<String, Properties>() {
         {
-            put("default", new Properties() {
+            put(Constants.DEFAULT, new Properties() {
                 {
                     setProperty(ApplicationProperty.APP_BASE_URL.name, "http://localhost:8080/myapp/");
                     setProperty(ApplicationProperty.DB_HOST.name, "ds249025.mlab.com");
@@ -41,8 +42,8 @@ public class ApplicationProperties {
                 return DEFAULT_VALUES.get(currentEnv).getProperty(propertyName);
             }
         }
-        if (DEFAULT_VALUES.get("default").containsKey(propertyName)) {
-            return DEFAULT_VALUES.get("default").getProperty(propertyName);
+        if (DEFAULT_VALUES.get(Constants.DEFAULT).containsKey(propertyName)) {
+            return DEFAULT_VALUES.get(Constants.DEFAULT).getProperty(propertyName);
         }
 
         logger.warn("Unknown application property: " + propertyName);
