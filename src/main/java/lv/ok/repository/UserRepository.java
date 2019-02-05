@@ -6,7 +6,6 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import lv.ok.models.User;
 import lv.ok.repository.codecs.UserCodec;
 import lv.ok.utils.Constants;
