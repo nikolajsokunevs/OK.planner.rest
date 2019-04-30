@@ -1,5 +1,6 @@
 package lv.ok.service;
 
+import lv.ok.utils.Constants;
 import lv.ok.utils.HashPassword;
 import lv.ok.utils.JwtGenerator;
 import lv.ok.models.User;
@@ -38,13 +39,13 @@ public class UserServiceImpl implements IUserService {
         boolean isUsernameCorrect = userRepository.checkIfUsernameExists(user.getUsername());
 
         if (isUsernameCorrect == false){
-            return new LoginResponse(false, "Your details are incorrect");
+            return new LoginResponse(false, Constants.INVALID_LOGIN_DETAILS);
         }
 
         boolean isPasswordCorrect = checkIfPasswordIsValid(user);
 
         if (isPasswordCorrect == false){
-            return new LoginResponse(false, "Your details are incorrect");
+            return new LoginResponse(false, Constants.INVALID_LOGIN_DETAILS);
         }
 
         LoginResponse response = generateLoginResponse(user);

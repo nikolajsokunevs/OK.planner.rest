@@ -11,4 +11,5 @@ public final class Constants {
     public static final String PASSWORD = "password";
     public static final String USERNAME = "username";
     public static final String USERS = "users";
+    public static final String INVALID_LOGIN_DETAILS = "The username and password you entered did not match our records. Please double-check and try again.";
 }
