@@ -1,5 +1,7 @@
 package lv.ok.models;
 
+import lv.ok.utils.Utilities;
+
 import java.util.Date;
 
 public class User {
@@ -9,6 +11,7 @@ public class User {
     private String id;
     private String company;
     private Date dateCreated;
+    private String emailVerificationHash;
 
     public String getUsername() {return username;}
     public void  setUsername(String username) {this.username = username;}
@@ -20,6 +23,7 @@ public class User {
     public void  setId(String id) {this.id = id;}
 
     public String getCompany() {return company;}
+
     public void  setCompany(String company) {
         if(company == null) {
             this.company = "";
@@ -34,5 +38,12 @@ public class User {
             return null;
         }
         return dateCreated;}
+
     public void setDateCreated() {this.dateCreated = new Date();}
+
+    public String getEmailVerificationHash() {return emailVerificationHash;}
+
+    public void setEmailVerificationHash() {
+        this.emailVerificationHash = new Utilities().generateRandomString();
+    }
 }

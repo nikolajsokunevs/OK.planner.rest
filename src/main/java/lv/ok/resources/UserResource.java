@@ -42,4 +42,13 @@ public class UserResource {
         LoginResponse result = userService.signIn(user);
         return Response.ok(result).build();
     }
+
+    @PUT
+    @Path("verify/username={username}&&hash={hash}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response update(@PathParam("username") String usernameValue, @PathParam("hash") String hashValue) {
+        IUserService userService = new UserServiceImpl();
+//        eventService.updateEvent(eventId, event);
+        return Response.ok().entity(event).header("Access-Control-Allow-Origin", "*").build();
+    }
 }
