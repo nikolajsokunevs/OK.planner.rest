@@ -1,5 +1,6 @@
 package lv.ok.models;
 
+import lv.ok.utils.Constants;
 import lv.ok.utils.Utilities;
 
 import java.util.Date;
@@ -12,6 +13,8 @@ public class User {
     private String company;
     private Date dateCreated;
     private String emailVerificationHash;
+    private String status;
+    private int verificationAttempts;
 
     public String getUsername() {return username;}
     public void  setUsername(String username) {this.username = username;}
@@ -45,5 +48,14 @@ public class User {
 
     public void setEmailVerificationHash() {
         this.emailVerificationHash = new Utilities().generateRandomString();
+    }
+
+    public String getStatus() {return status;}
+    public void setStatus(String status) { this.status = status; }
+
+    public int getVerificationAttempts() {return verificationAttempts;}
+
+    public void setVerificationAttempts(int attempt) {
+        this.verificationAttempts += attempt;
     }
 }

@@ -13,12 +13,6 @@ import org.bson.Document;
 import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecRegistries;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Date;
-import java.util.Properties;
-
 
 public class UserRepository extends BaseRepository{
 
@@ -68,14 +62,25 @@ public class UserRepository extends BaseRepository{
         return user.getPassword();
     }
 
-    public boolean verifyEmailHash(String usernameValue, String hashValue) {
-        MongoCollection<User> collection = db.getCollection(Constants.USERS, User.class);
-        User user = collection.find(eq(Constants.USERNAME, usernameValue)).first();
-        if(user.getEmailVerificationHash() == hashValue) {
+    public boolean verifyValue(String value1, String value2) {
+        if(value1 == value2) {
             return true;
         }
         else {
             return false;
+        }
+    }
+
+    public void activateUser(String usernameValue, String hashValue) {
+        MongoCollection<User> collection = db.getCollection(Constants.USERS, User.class);
+        User user = collection.find(eq(Constants.USERNAME, usernameValue)).first();
+
+        boolean isHashCorrect = verifyValue(user.getEmailVerificationHash(), hashValue);
+        if(isHashCorrect) {
+            user.setStatus(Constants.ACTIVE);
+        }
+        else {
+            //user verification attempt +1
         }
     }
 

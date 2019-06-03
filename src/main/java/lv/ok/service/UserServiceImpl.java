@@ -1,5 +1,6 @@
 package lv.ok.service;
 
+import lv.ok.resources.responses.AccountActivationResponse;
 import lv.ok.utils.Constants;
 import lv.ok.utils.HashPassword;
 import lv.ok.utils.JwtGenerator;
@@ -29,16 +30,14 @@ public class UserServiceImpl implements IUserService {
         }
         else {
             user.setDateCreated();
-
-            //todo SET USER VERIFICATION HASH
             user.setEmailVerificationHash();
-            //todo SET USER VERIFICATION ATTEMPTS = 0
-            //todo SET USER STATUS = PENDING
+            user.setVerificationAttempts(0);
+            user.setStatus("pending");
 
             userRepository.insertUser(user);
 
             //TODO send account activation link and hash code in email
-            sendAuthenticationEmail(user.getUsername());
+            sendAuthenticationEmail(user.getUsername(), user.getEmailVerificationHash());
             return "Username " + user.getUsername() + " has been added successfully.";
         }
     }
@@ -67,6 +66,12 @@ public class UserServiceImpl implements IUserService {
         return response;
     }
 
+    @Override
+    public AccountActivationResponse activateUser(User user, String hash) {
+        userRepository.activateUser(user, hash);
+        return LoginResponse(username + " account has been activated", )
+    }
+
     public boolean checkIfPasswordIsValid(User user){
         String hash = userRepository.getPasswordHash(user.getUsername());
         boolean isPasswordCorrect = false;
@@ -89,11 +94,10 @@ public class UserServiceImpl implements IUserService {
         return response;
     }
 
-    public void sendAuthenticationEmail(String usernameValue) {
+    public void sendAuthenticationEmail(String usernameValue, String hashValue) {
         try {
             String host = "smtp.gmail.com";
             String from = "mark.gusman11@gmail.com";
-            String to = usernameValue;
             String database = "planitnow";
 
             Properties properties = System.getProperties();
@@ -114,11 +118,11 @@ public class UserServiceImpl implements IUserService {
             mailSession.setDebug(false);
             Message msg = new MimeMessage(mailSession);
             msg.setFrom(new InternetAddress(from));
-            InternetAddress[] address = {new InternetAddress(to)};
+            InternetAddress[] address = {new InternetAddress(usernameValue)};
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject("Verify your Planit email");
             msg.setSentDate(new Date());
-            msg.setText("Please navigate to " + "<url>" + "to verify your email address");
+            msg.setText("Please navigate to <href>" + Constants.DOMAIN +"/user/verify/username=" + usernameValue + "&&hash=" + hashValue + "</href> to verify your email address");
             Transport transport = mailSession.getTransport("smtp");
             transport.connect(host, from, database);
             transport.sendMessage(msg, msg.getAllRecipients());

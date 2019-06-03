@@ -1,6 +1,7 @@
 package lv.ok.resources;
 
 import lv.ok.models.User;
+import lv.ok.resources.responses.AccountActivationResponse;
 import lv.ok.resources.responses.LoginResponse;
 import lv.ok.service.IUserService;
 import lv.ok.service.UserServiceImpl;
@@ -48,7 +49,7 @@ public class UserResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response update(@PathParam("username") String usernameValue, @PathParam("hash") String hashValue) {
         IUserService userService = new UserServiceImpl();
-//        eventService.updateEvent(eventId, event);
-        return Response.ok().entity(event).header("Access-Control-Allow-Origin", "*").build();
+        AccountActivationResponse result = userService.activateUser(usernameValue, hashValue);
+        return Response.ok(result).build();
     }
 }

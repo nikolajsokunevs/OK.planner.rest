@@ -4,9 +4,11 @@ public final class Constants {
     private Constants(){}
 
     public static final String _ID = "_id";
+    public static final String ACTIVE = "active";
     public static final String COMPANY = "company";
     public static final String DEFAULT = "default";
     public static final String DOCUMENT = "document";
+    public static final String DOMAIN = "http://localhost:8080/myapp";
     public static final String EVENTS = "events";
     public static final String FALSE = "false";
     public static final String INVALID_LOGIN_DETAILS = "The username and password you entered did not match our records. Please double-check and try again.";
